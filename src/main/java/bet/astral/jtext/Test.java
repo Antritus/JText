@@ -2,7 +2,7 @@ package bet.astral.jtext;
 
 import bet.astral.jtext.color.Colors;
 import bet.astral.jtext.component.Component;
-import bet.'astral.jtext.serializer.AnsiSerializer;
+import bet.astral.jtext.serializer.AnsiSerializer;
 import bet.astral.jtext.style.Style;
 
 public class Test {
