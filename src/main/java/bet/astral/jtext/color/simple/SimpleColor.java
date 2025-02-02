@@ -1,8 +1,9 @@
 package bet.astral.jtext.color.simple;
 
+import bet.astral.jtext.color.ColorLike;
 import org.jetbrains.annotations.NotNull;
 
-public interface SimpleColor {
+public interface SimpleColor extends ColorLike {
     /**
      * Converts this to an RGB color
      * @return rgb color instance

@@ -21,10 +21,10 @@ public interface Translatable {
      * @param color component color
      * @param style component style
      * @see LangComponent
-     * @see Component#lang(Translatable, ColorLike, Style)
+     * @see Component#lang(Translatable, ColorLike)
      */
-    default LangComponent getTranslationComponent(ColorLike color, Style style) {
-        return Component.lang(this, color, style);
+    default LangComponent asLangComponent(ColorLike color, Style style) {
+        return (LangComponent) Component.lang(this, color).style(style);
     }
     /**
      * Converts this instance to a new lang component
@@ -33,7 +33,7 @@ public interface Translatable {
      * @see LangComponent
      * @see Component#lang(Translatable, ColorLike)
      */
-    default LangComponent getTranslationComponent(ColorLike color) {
+    default LangComponent asLangComponent(ColorLike color) {
         return Component.lang(this, color);
     }
     /**
@@ -42,7 +42,7 @@ public interface Translatable {
      * @see LangComponent
      * @see Component#lang(Translatable)
      */
-    default LangComponent getTranslationComponent() {
+    default LangComponent asLangComponent() {
         return Component.lang(this);
     }
 }

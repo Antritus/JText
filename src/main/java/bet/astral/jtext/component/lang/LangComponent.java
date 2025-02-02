@@ -78,8 +78,42 @@ public class LangComponent extends StyleComponent implements Translatable {
         return this;
     }
 
+    /**
+     * Returns the translation key
+     * @return translation key
+     */
     @Override
     public String getTranslationKey() {
         return getValue();
+    }
+
+    /**
+     * Returns this
+     * @return this
+     */
+    @Override
+    public LangComponent asLangComponent() {
+        return this;
+    }
+
+    /**
+     * Returns this
+     * @param color component color
+     * @return this
+     */
+    @Override
+    public LangComponent asLangComponent(ColorLike color) {
+        return (LangComponent) color(color);
+    }
+
+    /**
+     * Returns this
+     * @param color component color
+     * @param style component style
+     * @return this
+     */
+    @Override
+    public LangComponent asLangComponent(ColorLike color, Style style) {
+        return (LangComponent) color(color).style(style);
     }
 }

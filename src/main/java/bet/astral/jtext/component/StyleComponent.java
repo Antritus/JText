@@ -26,9 +26,10 @@ public abstract class StyleComponent extends Component {
 
     /**
      * Creates a new instance of the style component
-     * @param value value
-     * @param color color
-     * @param style style
+     *
+     * @param value    value
+     * @param color    color
+     * @param style    style
      * @param children children
      */
     public StyleComponent(String value, ColorLike color, ColorLike background, ColorLike shadow, Style style, ArrayList<Component> children, List<Object> placeholders) {
@@ -38,20 +39,22 @@ public abstract class StyleComponent extends Component {
         this.shadow = shadow;
         this.style = style;
 
-        if (children == null){
+        if (children == null) {
             this.children = new ArrayList<>();
         } else {
             this.children = new ArrayList<>(children);
         }
 
-        if (placeholders == null){
+        if (placeholders == null) {
             this.placeholders = new ArrayList<>();
         } else {
             this.placeholders = new ArrayList<>(placeholders);
         }
     }
+
     /**
      * Creates a new instance of the style component
+     *
      * @param value value
      * @param color color
      * @param style style
@@ -66,6 +69,9 @@ public abstract class StyleComponent extends Component {
     public StyleComponent() {
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getTotalParsedMessage() {
         if (children == null || children.isEmpty()) {
@@ -80,72 +86,139 @@ public abstract class StyleComponent extends Component {
     }
 
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getValue() {
         return value;
     }
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getMessageParsed() {
         return value;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public ColorLike getColor() {
         return color;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Component color(ColorLike textColor) {
+        color = textColor;
+        return this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public ColorLike getBackgroundColor() {
         return background;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Component backgroundColor(ColorLike backgroundColor) {
+        background = backgroundColor;
+        return this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public ColorLike getShadowColor() {
         return shadow;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Component shadowColor(ColorLike shadowColor) {
+        shadow = shadowColor;
+        return this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Style getStyle() {
         return style;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public Component addSpace() {
+    public Component style(Style style) {
+        this.style = style;
+        return this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Component appendSpace() {
         if (children == null || children.isEmpty()) {
-            if (this instanceof LangComponent){
-                return addChildText(" ");
+            if (this instanceof LangComponent) {
+                return appendText(" ");
             }
-            this.value = value+" ";
+            this.value = value + " ";
             return this;
         } else {
             Component latest = children.get(children.size() - 1);
             if (latest instanceof StyleComponent styleComponent && !(latest instanceof LangComponent)) {
-                styleComponent.value = styleComponent.value+" ";
+                styleComponent.value = styleComponent.value + " ";
             } else {
-                return addChildText(" ");
+                return appendText(" ");
             }
         }
         return this;
     }
 
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public Component addChild(ComponentLike component) {
+    public Component append(ComponentLike component) {
         this.children.add(component.toComponent());
         return this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public ImmutableList<Component> getChildren() {
-        if (children == null){
+        if (children == null) {
             return new ImmutableListImpl<>(Collections.emptyList());
         }
         return new ImmutableListImpl<>(children, true);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public ImmutableList<Component> toList() {
-        if (children == null || children.isEmpty()){
+        if (children == null || children.isEmpty()) {
             return new ImmutableListImpl<>(List.of(this));
         }
 
@@ -155,11 +228,17 @@ public abstract class StyleComponent extends Component {
         return new ImmutableListImpl<>(list);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Object> getPlaceholders() {
         return placeholders;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public @NotNull Iterator<Component> iterator() {
         return toList().iterator();

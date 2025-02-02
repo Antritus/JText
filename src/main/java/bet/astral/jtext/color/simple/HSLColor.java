@@ -1,10 +1,21 @@
 package bet.astral.jtext.color.simple;
 
 import bet.astral.jtext.color.ColorLike;
+import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Range;
 
+/**
+ * HSL color format. Class made for shader style calculations. Hue, Saturation, Lightness. Use {@link Color} for normmal RGB(A) format.
+ */
 public class HSLColor implements ColorLike, SimpleColor {
+    /**
+     * Creates an HSL color instance while calculating red, green and blue to hue saturation light
+     * @param red red
+     * @param green green
+     * @param blue blue
+     * @return new hsl instance
+     */
     public static @NotNull HSLColor rgb(
             @Range(from = 0, to = 255) int red,
             @Range(from = 0, to = 255) int green,
@@ -47,27 +58,53 @@ public class HSLColor implements ColorLike, SimpleColor {
     private float saturation;
     private float lightness;
 
+    /**
+     * Creates a new HSL color instance
+     * @param hue hue
+     * @param saturation saturation
+     * @param lightness lightness
+     */
     public HSLColor(float hue, float saturation, float lightness) {
         this.hue = hue;
         this.saturation = saturation;
         this.lightness = lightness;
     }
 
+    /**
+     * Internal usage for deserialization. Creates a new HSL color instance
+     */
+    @ApiStatus.Internal
     public HSLColor() {
     }
 
+    /**
+     * Returns the hue
+     * @return hue
+     */
     public float getHue() {
         return hue;
     }
 
+    /**
+     * Returns the saturation
+     * @return saturation
+     */
     public float getSaturation() {
         return saturation;
     }
 
+    /**
+     * Returns the lightness
+     * @return lightness
+     */
     public float getLightness() {
         return lightness;
     }
 
+    /**
+     * Converts this HSL to RGB(A) color instance
+     * @return rgb(a) instance
+     */
     @Override
     public @NotNull Color toRGBColor() {
         hue = (hue % 360 + 360) % 360;
@@ -110,12 +147,20 @@ public class HSLColor implements ColorLike, SimpleColor {
         return new Color(red, green, blue);
     }
 
+    /**
+     * Returns this
+     * @return this
+     */
     @Override
     public @NotNull HSLColor toHSLColor() {
         return this;
     }
 
 
+    /**
+     * Converts this HSL color to HSV color instance
+     * @return new HSV color instance
+     */
     @Override
     public @NotNull HSVColor toHSVColor() {
         float value = lightness + saturation * Math.min(lightness, 1 - lightness);

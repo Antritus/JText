@@ -6,7 +6,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Range;
 
 /**
- * Single color representation of {@link ColorLike}
+ * Single color representation of {@link ColorLike}. Uses the RGB format. To use HSL or HSV color format use {@link HSLColor} and {@link HSVColor}
  */
 public class Color implements ColorLike, SimpleColor {
     public static final String HEX_SHORT = "[0-9a-fA-F]{3}";
@@ -22,9 +22,19 @@ public class Color implements ColorLike, SimpleColor {
     @Range(from = 0, to = 1)
     private float alpha;
 
+    /**
+     * Used internally to serialize/deserialize
+     */
+    @ApiStatus.Internal
     public Color() {
     }
 
+    /**
+     * Creates a new RGB instance
+     * @param red red
+     * @param green green
+     * @param blue blue
+     */
     public Color(@Range(from = 0, to = 255) int red, @Range(from = 0, to = 255) int green, @Range(from = 0, to = 255) int blue) {
         this.red = red;
         this.green = green;
@@ -32,6 +42,13 @@ public class Color implements ColorLike, SimpleColor {
         this.alpha = 1f;
     }
 
+    /**
+     * Creates a new RGBA instance
+     * @param red red
+     * @param green green
+     * @param blue blue
+     * @param alpha alpha
+     */
     public Color(@Range(from = 0, to = 255) int red, @Range(from = 0, to = 255) int green, @Range(from = 0, to = 255) int blue, @Range(from = 0, to = 1) float alpha) {
         this.red = red;
         this.green = green;

@@ -23,9 +23,9 @@ public class Style {
      *
      * @param isBold       is bold
      * @param obfuscation  is obfuscated
-     * @param isOverline
-     * @param isStrike
-     * @param isUnderlined
+     * @param isOverline   is overlined
+     * @param isStrike     is strikethrough
+     * @param isUnderlined is underlined
      */
     public Style(TriState isBold, TriState obfuscation, TriState isOverline, TriState isStrike, TriState isUnderlined){
         this.bold = isBold;
@@ -39,11 +39,6 @@ public class Style {
      * Creates a new instance of component style
      */
     public Style(){
-        bold = DEFAULT_BOLD;
-        obfuscation = DEFAULT_OBFUSCATION;
-        underlined = DEFAULT_UNDERLINED;
-        strikethrough = DEFAULT_STRIKETHROUGH;
-        overline = DEFAULT_OVERLINE;
     }
 
     public Style(Style style, Style backupStyle) {
@@ -70,6 +65,7 @@ public class Style {
         overline = orElse(style.overline, style.overline);
         strikethrough = orElse(style.strikethrough, style.strikethrough);
     }
+
     private TriState orElse(TriState state, TriState backup) {
         if (state == TriState.NOT_SET) {
             return backup;

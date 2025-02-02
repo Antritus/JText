@@ -1,4 +1,4 @@
-package bet.astral.jtext.serializer;
+package bet.astral.jtext.ansi;
 
 import bet.astral.jtext.color.ColorLike;
 import bet.astral.jtext.color.GradientColor;
@@ -9,23 +9,20 @@ import bet.astral.jtext.color.simple.HSVColor;
 import bet.astral.jtext.component.Component;
 import bet.astral.jtext.component.lang.LangComponent;
 import bet.astral.jtext.lang.LangHandler;
+import bet.astral.jtext.serializer.Serializer;
 import bet.astral.jtext.style.Style;
 import bet.astral.jtext.utils.TriState;
-import com.diogonunes.jcolor.Ansi;
-import com.diogonunes.jcolor.Attribute;
 
-import java.util.LinkedList;
 import java.util.List;
 
-/**
- * Converts the components to ANSI colored/formatted string. Does not parse ansi colors back to component.
- */
-public class AnsiSerializer implements Serializer<String, Component> {
+public class ANSISerializer implements Serializer<String, Component> {
     private LangHandler langHandler;
-    public AnsiSerializer() {
+
+    public ANSISerializer() {
         this.langHandler = new LangHandler.LangHandlerImpl();
     }
-    public AnsiSerializer(LangHandler langHandler) {
+
+    public ANSISerializer(LangHandler langHandler) {
         this.langHandler = langHandler;
     }
 
@@ -33,7 +30,6 @@ public class AnsiSerializer implements Serializer<String, Component> {
     public String serialize(Component component) {
         return serialize(component, finalColor(component.getColor()), finalColor(component.getBackgroundColor()), component.getStyle());
     }
-
 
     public boolean orElseTri(TriState value, TriState defaultValue) {
         if (value == TriState.NOT_SET) {
@@ -72,24 +68,24 @@ public class AnsiSerializer implements Serializer<String, Component> {
         boolean strike = jointStyle.isStrikethrough();
         boolean underlined = jointStyle.isUnderlined();
 
-        List<Attribute> attributes = new LinkedList<>();
+        StringBuilder attributes = new StringBuilder();
         if (color != null) {
-            attributes.add(convertColorText(color));
+            attributes.append(ANSIHelper.convertColorToANSIForeground(color));
         }
         if (backgroundColor != null) {
-            attributes.add(convertColorBack(backgroundColor));
+            attributes.append(ANSIHelper.convertColorToANSIBackground(backgroundColor));
         }
         if (bold) {
-            attributes.add(bold());
+            attributes.append(ANSIHelper.BOLD);
         }
         if (overline) {
-            attributes.add(overline());
+            attributes.append(ANSIHelper.OVERLINE);
         }
         if (strike) {
-            attributes.add(strike());
+            attributes.append(ANSIHelper.STRIKETHROUGH);
         }
         if (underlined) {
-            attributes.add(underline());
+            attributes.append(ANSIHelper.UNDERLINE);
         }
 
         String returnValue;
@@ -110,8 +106,8 @@ public class AnsiSerializer implements Serializer<String, Component> {
         if (returnValue == null){
             return "";
         }
-        returnValue = Ansi.makeItFabulous(returnValue, attributes.toArray(new Attribute[0]));
-        return returnValue + serializeChildren(component.getChildren(), color, backgroundColor, jointStyle);
+        returnValue = attributes + returnValue;
+        return returnValue + serializeChildren(component.getChildren(), color, backgroundColor, jointStyle) + ANSIHelper.RESET_FORMAT;
     }
     private String serializeChildren(List<Component> children, Color color, Color backgroundColor, Style style) {
         StringBuilder returnValue = new StringBuilder();
@@ -121,37 +117,9 @@ public class AnsiSerializer implements Serializer<String, Component> {
         return returnValue.toString();
     }
 
-    public Attribute convertColorBack(Color color) {
-        return Attribute.BACK_COLOR(color.getRed(), color.getGreen(), color.getBlue());
-    }
-
-    public Attribute convertColorText(Color color) {
-        return Attribute.TEXT_COLOR(color.getRed(), color.getGreen(), color.getBlue());
-    }
-
-    public Attribute bold() {
-        return Attribute.BOLD();
-    }
-
-    public Attribute italic() {
-        return Attribute.ITALIC();
-    }
-
-    public Attribute overline() {
-        return Attribute.OVERLINED();
-    }
-
-    public Attribute underline() {
-        return Attribute.UNDERLINE();
-    }
-
-    public Attribute strike() {
-        return Attribute.STRIKETHROUGH();
-    }
-
     @Override
     public Component deserialize(String s) {
-        return Component.text(s);
+        return null;
     }
 
     @Override

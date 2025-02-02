@@ -1,9 +1,27 @@
-package bet.astral.jtext;
+[![](https://jitpack.io/v/antritus/Jtext.svg)](https://jitpack.io/#antritus/Jtext)
+# JText
+Java text component library which has built in serializer to serialize java components to ANSI text.
 
-import bet.astral.jtext.ansi.ANSIHelper;
-import bet.astral.jtext.ansi.ANSISerializer;
+## Add it
+Add the repository to gradle
+```groovy
+repositories {
+    mavenCentral()
+    maven { url = uri("https://jitpack.io") }
+}
+
+dependencies {
+    implementation("com.github.antritus:Jtext:-SNAPSHOT")
+}
+```
+
+## How to use it
+Creates a new component and sends it to the terminal. Parses the component to ANSI text.
+
+```java
 import bet.astral.jtext.color.Colors;
 import bet.astral.jtext.component.Component;
+import bet.astral.jtext.serializer.AnsiSerializer;
 
 public class Test {
     public static void main(String[] args) {
@@ -19,12 +37,11 @@ public class Test {
                         .append(Component.text("Green Background").backgroundColor(Colors.GREEN))
                 )
                 .appendSpace()
-                .append(Component.text(" !", Colors.BLACK).backgroundColor(Colors.WHITE).shadowColor(Colors.RED))
+                .append(Component.text(" ", Colors.BLACK).backgroundColor(Colors.WHITE).shadowColor(Colors.RED))
                 ;
 
-        ANSISerializer ts = new ANSISerializer();
+        AnsiSerializer ts = new AnsiSerializer();
         System.out.println(ts.serialize(component));
-        System.out.println(ts.serialize(Component.text("Welcome to ", Colors.RED).appendText("JText", Colors.BLUE)));
-        System.out.println(ANSIHelper.UNDERLINE+ ANSIHelper.OVERLINE+ ANSIHelper.STRIKETHROUGH+ ANSIHelper.convertColorToANSIBackground(Colors.BLUE)+"HELLLO!"+ ANSIHelper.RESET_FORMAT);
     }
 }
+```

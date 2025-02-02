@@ -5,7 +5,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Range;
 
 /**
- * Hue, Saturation, Value implementation of color
+ * HSV color instance. Hue, Saturation, Value implementation of color. Use {@link Color} for normal RGB(A) color
  */
 public class HSVColor implements ColorLike, SimpleColor {
     /**
@@ -91,6 +91,10 @@ public class HSVColor implements ColorLike, SimpleColor {
         return value;
     }
 
+    /**
+     * Converts this RGB(A) color instance
+     * @return new RGB(A) instance
+     */
     @Override
     public @NotNull Color toRGBColor() {
         float hue = this.hue % 360;
@@ -134,6 +138,11 @@ public class HSVColor implements ColorLike, SimpleColor {
 
         return new Color(red, green, blue);
     }
+
+    /**
+     * Converts this HSV color to HSL color instance
+     * @return new HSV instance
+     */
     @Override
     public @NotNull HSLColor toHSLColor() {
         float hue = this.hue % 360;
@@ -188,6 +197,10 @@ public class HSVColor implements ColorLike, SimpleColor {
         return new HSLColor(hue, saturationHSL, lightness);
     }
 
+    /**
+     * Returns this
+     * @return this
+     */
     @Override
     public @NotNull HSVColor toHSVColor() {
         return this;

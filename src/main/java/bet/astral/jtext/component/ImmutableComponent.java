@@ -37,41 +37,107 @@ public class ImmutableComponent extends Component{
         totalList = new ImmutableListImpl<>(total);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getTotalParsedMessage() {
         return component.getTotalParsedMessage();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getValue() {
         return component.getValue();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getMessageParsed() {
         return component.getMessageParsed();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public ColorLike getColor() {
         return component.getColor();
     }
 
+    /**
+     * Calling this method calls {@link UnsupportedOperationException}
+     * @param textColor color
+     * @throws UnsupportedOperationException if used
+     */
+    @Override
+    public Component color(ColorLike textColor) throws UnsupportedOperationException{
+        throw new UnsupportedOperationException("Cannot modify the color of an immutable component!");
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public ColorLike getBackgroundColor() {
         return component.getBackgroundColor();
     }
 
+    /**
+     * Calling this method calls {@link UnsupportedOperationException}
+     * @param backgroundColor color
+     * @throws UnsupportedOperationException if used
+     */
+    @Override
+    public Component backgroundColor(ColorLike backgroundColor) throws UnsupportedOperationException {
+        throw new UnsupportedOperationException("Cannot modify the background color of an immutable component!");
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public ColorLike getShadowColor() {
         return component.getShadowColor();
     }
 
+    /**
+     * Calling this method calls {@link UnsupportedOperationException}
+     * @param shadowColor color
+     * @throws UnsupportedOperationException if used
+     */
     @Override
-    public Style getStyle() {
-        return component.getStyle();
+    public Component shadowColor(ColorLike shadowColor) throws UnsupportedOperationException {
+        throw new UnsupportedOperationException("Cannot modify the shadow color of an immutable component!");
     }
 
+    /**
+     * Returns immutable version of this component's style
+     * @return style
+     */
+    @Override
+    public Style getStyle() {
+        return new Style(component.getStyle(), component.getStyle());
+    }
+
+    /**
+     * Calling this method calls {@link UnsupportedOperationException}
+     * @param style style
+     * @throws UnsupportedOperationException if used
+     */
+    @Override
+    public Component style(Style style) throws UnsupportedOperationException {
+        throw new UnsupportedOperationException("Cannot modify the style of an immutable component!");
+    }
+
+    /**
+     * Converts component's placeholders to immutable list and returns it.
+     * @return placeholders
+     */
     @Override
     public List<Object> getPlaceholders() {
         if (component.getPlaceholders() != null){
@@ -80,26 +146,44 @@ public class ImmutableComponent extends Component{
         return Collections.emptyList();
     }
 
+    /**
+     * Calling this method calls {@link UnsupportedOperationException}
+     * @throws UnsupportedOperationException if used
+     */
     @Override
-    public Component addSpace() {
+    public Component appendSpace() {
         throw new UnsupportedOperationException("Cannot add children to an immutable component!");
     }
 
+    /**
+     * Calling this method calls {@link UnsupportedOperationException}
+     * @param component component
+     * @throws UnsupportedOperationException if used
+     */
     @Override
-    public Component addChild(ComponentLike component) throws UnsupportedOperationException{
+    public Component append(ComponentLike component) throws UnsupportedOperationException{
         throw new UnsupportedOperationException("Cannot add children to an immutable component!");
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public ImmutableList<Component> getChildren() {
         return convertedChildren;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public ImmutableList<Component> toList() {
         return totalList;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public @NotNull Iterator<Component> iterator() {
         return totalList.iterator();
