@@ -20,6 +20,7 @@ public class TextComponent extends StyleComponent {
      * @param shadowColor shadow color
      * @param style style
      * @param children children
+     * @param placeholders placeholders
      */
     public TextComponent(String value, ColorLike color, ColorLike backgroundColor, ColorLike shadowColor, Style style, ArrayList<Component> children, List<Object> placeholders) {
         super(value, color, backgroundColor, shadowColor, style, children, placeholders);

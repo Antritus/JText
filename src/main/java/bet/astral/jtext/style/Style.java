@@ -1,16 +1,34 @@
 package bet.astral.jtext.style;
 
 import bet.astral.jtext.utils.TriState;
+import org.apiguardian.api.API;
 
 /**
  * Allows additional styling of the components
  */
+@API(status = API.Status.STABLE)
 public class Style {
     public static final Style DEFAULT = new Builder().build();
+    /**
+     * Default value used for bold text ({@link TriState#FALSE})
+     */
     public static final TriState DEFAULT_BOLD = TriState.FALSE;
+    /**
+     * Default value used for text overline ({@link TriState#FALSE})
+     */
+    @API(status = API.Status.EXPERIMENTAL)
     public static final TriState DEFAULT_OBFUSCATION = TriState.FALSE;
+    /**
+     * Default value used for text underline ({@link TriState#FALSE})
+     */
     public static final TriState DEFAULT_UNDERLINED = TriState.FALSE;
+    /**
+     * Default value used for text strikethrough ({@link TriState#FALSE})
+     */
     public static final TriState DEFAULT_STRIKETHROUGH = TriState.FALSE;
+    /**
+     * Default value used for text overline ({@link TriState#FALSE})
+     */
     public static final TriState DEFAULT_OVERLINE = TriState.FALSE;
     private TriState bold = DEFAULT_BOLD;
     private TriState obfuscation = DEFAULT_OBFUSCATION;
@@ -41,6 +59,12 @@ public class Style {
     public Style(){
     }
 
+    /**
+     * Creates a new style. Checks if any of the given styles are null and uses the other one if one is null.
+     * Uses the first style as base, if a value is not set checks the backup style for the used value
+     * @param style style
+     * @param backupStyle backup
+     */
     public Style(Style style, Style backupStyle) {
         if (style == null && backupStyle == null){
             return;
@@ -64,6 +88,14 @@ public class Style {
         underlined = orElse(style.underlined, style.underlined);
         overline = orElse(style.overline, style.overline);
         strikethrough = orElse(style.strikethrough, style.strikethrough);
+    }
+
+    /**
+     * Returns a new style builder
+     * @return style builder
+     */
+    public static Style.Builder builder(){
+        return new Style.Builder();
     }
 
     private TriState orElse(TriState state, TriState backup) {

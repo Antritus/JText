@@ -6,8 +6,17 @@ import org.jetbrains.annotations.Nullable;
  * Default tri state with true, false, not set
  */
 public enum TriState {
+    /**
+     * Default state, not true or false
+     */
     NOT_SET(null),
+    /**
+     * {@link Boolean#TRUE TRUE}
+     */
     TRUE(true),
+    /**
+     * {@link Boolean#FALSE FALSE}
+     */
     FALSE(false),
     ;
 
