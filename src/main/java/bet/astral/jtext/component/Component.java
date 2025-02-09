@@ -16,6 +16,13 @@ import java.util.List;
  */
 public abstract class Component implements ComponentLike, Iterable<Component> {
     /**
+     * Creates a new empty text component to act as a "null safe" component.
+     * @return empty component
+     */
+    public static Component empty() {
+        return new TextComponent("", null, null);
+    }
+    /**
      * Returns new {@link LangComponent} with given values
      * @param text text
      * @param color color of the text
