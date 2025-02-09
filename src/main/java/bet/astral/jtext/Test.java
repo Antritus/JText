@@ -1,30 +1,40 @@
 package bet.astral.jtext;
 
-import bet.astral.jtext.ansi.ANSIHelper;
 import bet.astral.jtext.ansi.ANSISerializer;
 import bet.astral.jtext.color.Colors;
+import bet.astral.jtext.color.simple.Color;
 import bet.astral.jtext.component.Component;
+import bet.astral.jtext.style.Style;
+import bet.astral.jtext.utils.TriState;
+
+import java.util.Random;
 
 public class Test {
     public static void main(String[] args) {
-        Component component = Component.text("Hello World,").color(Colors.BLUE).backgroundColor(Colors.AQUA)
-                .shadowColor(Colors.RED)
-                .appendSpace()
-                .append(Component.text("components are easy to use!", Colors.BLUE).color(Colors.INDIGO)
-                        .appendSpace()
-                        .appendText("Red", Colors.RED)
-                        .appendSpace()
-                        .appendText("Blue", Colors.BLUE)
-                        .appendSpace()
-                        .append(Component.text("Green Background").backgroundColor(Colors.GREEN))
-                )
-                .appendSpace()
-                .append(Component.text(" !", Colors.BLACK).backgroundColor(Colors.WHITE).shadowColor(Colors.RED))
-                ;
+        ANSISerializer serializer = new ANSISerializer();
 
-        ANSISerializer ts = new ANSISerializer();
-        System.out.println(ts.serialize(component));
-        System.out.println(ts.serialize(Component.text("Welcome to ", Colors.RED).appendText("JText", Colors.BLUE)));
-        System.out.println(ANSIHelper.UNDERLINE+ ANSIHelper.OVERLINE+ ANSIHelper.STRIKETHROUGH+ ANSIHelper.convertColorToANSIBackground(Colors.BLUE)+"HELLLO!"+ ANSIHelper.RESET_FORMAT);
+        Component component = Component.empty().color(Colors.YELLOW)
+                .append(Component.text("J", Colors.BLUE)
+                        .appendText("Text", Colors.AQUA)
+                        .appendText("!", Colors.ORANGE)
+                        .appendSpace())
+                        .appendText("Java text component ")
+                        .appendText("LIBRARY", null,
+                                Style.builder()
+                                        .setUnderlined(TriState.TRUE)
+                                        .setBold(TriState.TRUE)
+                                        .build()).appendText("!");
+
+        serializer.println(component);
+        System.out.println();
+
+        Random random = new Random(0x606060F6);
+        for (int i = 0; i < 10; i++) {
+            Component header = Component.empty();
+            for (int j = 0; j < 45; j++) {
+                header.append(Component.text("  ").backgroundColor(new Color(random.nextInt(255), random.nextInt(255), random.nextInt(255))));
+            }
+            serializer.println(header);
+        }
     }
 }
