@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "bet.astral"
-version = "1.0-SNAPSHOT"
+version = "1.0.0"
 
 repositories {
     mavenCentral()
@@ -12,6 +12,7 @@ repositories {
 
 dependencies {
     implementation("org.jetbrains:annotations:26.0.2")
+    compileOnly("org.apiguardian:apiguardian-api:1.1.2")
 
     testImplementation(platform("org.junit:junit-bom:5.10.0"))
     testImplementation("org.junit.jupiter:junit-jupiter")
@@ -19,15 +20,18 @@ dependencies {
 
 java {
     toolchain.languageVersion.set(JavaLanguageVersion.of(17))
-}
-
-java {
     withSourcesJar()
     withJavadocJar()
 }
 
 tasks.test {
     useJUnitPlatform()
+}
+
+tasks.jar {
+    manifest {
+        attributes["Main-Class"] = "bet.astral.jtext.Test" // Replace with your main class
+    }
 }
 
 publishing {
