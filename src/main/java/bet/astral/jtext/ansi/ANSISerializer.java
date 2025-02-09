@@ -119,11 +119,19 @@ public class ANSISerializer implements Serializer<String, Component> {
 
     @Override
     public Component deserialize(String s) {
-        return null;
+        // Make this actually parse the text
+        return Component.text(s);
     }
 
     @Override
     public LangHandler getLangHandler() {
         return langHandler;
+    }
+
+    public void println(Component component){
+        System.out.println(serialize(component));
+    }
+    public void print(Component component){
+        System.out.print(serialize(component));
     }
 }
