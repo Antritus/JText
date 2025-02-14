@@ -175,23 +175,18 @@ public abstract class StyleComponent extends Component {
      */
     @Override
     public Component appendSpace() {
-        if (children == null || children.isEmpty()) {
-            if (this instanceof LangComponent) {
-                return appendText(" ");
-            }
-            this.value = value + " ";
-            return this;
-        } else {
-            Component latest = children.get(children.size() - 1);
-            if (latest instanceof StyleComponent styleComponent && !(latest instanceof LangComponent)) {
-                styleComponent.value = styleComponent.value + " ";
-            } else {
-                return appendText(" ");
-            }
-        }
+        appendText(" ");
         return this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Component appendNewLine() {
+        appendText("\n");
+        return this;
+    }
 
     /**
      * {@inheritDoc}

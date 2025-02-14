@@ -14,7 +14,8 @@ public class Test {
         ANSISerializer serializer = new ANSISerializer();
 
         Component component = Component.empty().color(Colors.YELLOW)
-                .append(Component.text("J", Colors.BLUE)
+                .append(
+                        Component.text("J", Colors.BLUE)
                         .appendText("Text", Colors.AQUA)
                         .appendText("!", Colors.ORANGE)
                         .appendSpace())
@@ -23,10 +24,12 @@ public class Test {
                                 Style.builder()
                                         .setUnderlined(TriState.TRUE)
                                         .setBold(TriState.TRUE)
-                                        .build()).appendText("!");
-
+                                        .build()).appendText("!")
+                .appendNewLine()
+                .appendText(" > ", Colors.ORANGE)
+                .appendText("append ").appendText("text component", Colors.AQUA, Style.builder().setUnderlined(TriState.TRUE).build()).appendText(" to console!")
+                ;
         serializer.println(component);
-        System.out.println();
 
         Random random = new Random(0x606060F6);
         for (int i = 0; i < 10; i++) {

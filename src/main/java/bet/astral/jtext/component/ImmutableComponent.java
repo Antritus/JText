@@ -151,7 +151,12 @@ public class ImmutableComponent extends Component{
      * @throws UnsupportedOperationException if used
      */
     @Override
-    public Component appendSpace() {
+    public Component appendSpace() throws UnsupportedOperationException {
+        throw new UnsupportedOperationException("Cannot add children to an immutable component!");
+    }
+
+    @Override
+    public Component appendNewLine() throws UnsupportedOperationException {
         throw new UnsupportedOperationException("Cannot add children to an immutable component!");
     }
 

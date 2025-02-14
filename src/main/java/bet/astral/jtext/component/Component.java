@@ -354,6 +354,12 @@ public abstract class Component implements ComponentLike, Iterable<Component> {
      * @return this
      */
     public abstract Component appendSpace();
+
+    /**
+     * Adds a new line to the component's children
+     * @return this
+     */
+    public abstract Component appendNewLine();
     /**
      * Adds all the listed children to this component
      * @param componentLikes children to add
